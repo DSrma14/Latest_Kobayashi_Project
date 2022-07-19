@@ -1,0 +1,11 @@
+session_name: Kobayashi Estimator
+suppress_history: false
+windows:
+  - layout: main-vertical
+    panes:
+      - lerna run dev
+      - ${EDITOR} -S
+  - panes:
+      - shell_command:
+          - git fetch
+          - git status
