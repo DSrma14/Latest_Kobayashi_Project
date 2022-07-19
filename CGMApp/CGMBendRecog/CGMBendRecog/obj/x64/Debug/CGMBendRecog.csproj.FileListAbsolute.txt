@@ -1,0 +1,16 @@
+E:\Kobayashi_Updated\Kobayashi\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.csproj.CoreCompileInputs.cache
+E:\Kobayashi_Updated\Kobayashi\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.csproj.CopyComplete
+E:\Kobayashi_Updated\Kobayashi\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.exe
+E:\Kobayashi_Updated\Kobayashi\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.pdb
+E:\Kobayashi_Updated\Kobayashi\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.csprojAssemblyReference.cache
+E:\CGM\2022.1.0.0HF.HF12\2022.1.0.0hf_CGM_win_19_64\win_b64\code\clr\CGMBendRecog.exe.config
+E:\CGM\2022.1.0.0HF.HF12\2022.1.0.0hf_CGM_win_19_64\win_b64\code\clr\CGMBendRecog.exe
+E:\CGM\2022.1.0.0HF.HF12\2022.1.0.0hf_CGM_win_19_64\win_b64\code\clr\CGMBendRecog.pdb
+E:\Zea\2022.1.0.0HF.HF12\2022.1.0.0hf_CGM_win_19_64\win_b64\code\clr\CGMBendRecog.exe.config
+E:\Zea\2022.1.0.0HF.HF12\2022.1.0.0hf_CGM_win_19_64\win_b64\code\clr\CGMBendRecog.exe
+E:\Zea\2022.1.0.0HF.HF12\2022.1.0.0hf_CGM_win_19_64\win_b64\code\clr\CGMBendRecog.pdb
+E:\Zea\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.csprojAssemblyReference.cache
+E:\Zea\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.csproj.CoreCompileInputs.cache
+E:\Zea\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.csproj.CopyComplete
+E:\Zea\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.exe
+E:\Zea\kobayashi-estimator-main\CGMApp\CGMBendRecog\CGMBendRecog\obj\x64\Debug\CGMBendRecog.pdb

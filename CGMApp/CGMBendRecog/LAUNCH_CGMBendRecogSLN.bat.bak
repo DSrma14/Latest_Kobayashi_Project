@@ -1,0 +1,6 @@
+@echo off
+REM set up CGMPATH; PATH will be updated at run time by the executable
+set CGMPATH=E:\packages\CGM_2021.1.0.1_SP_pre-releaseApril15
+
+REM cannot start from a network path. Please copy the solution and project to a local directory
+start CGMBendRecog.sln
