@@ -2,11 +2,37 @@
   // A dialog based on 'svelte-accessible-dialog'
   // https://www.npmjs.com/package/svelte-accessible-dialog
   import { DialogOverlay, DialogContent } from 'svelte-accessible-dialog'
+  import { onMount } from 'svelte'
 
   export let isOpen
   export let close
+  export let asset
   export let contextItem
+  export let subGeom
   export let savedData
+
+  let selected = ""
+
+  $: {
+    if (contextItem && subGeom) {
+      const key = contextItem.path + ":" + subGeom.name
+        console.log(key, savedData)
+      if (savedData[key]) {
+        selected = savedData[key].BendType
+        console.log(key, selected)
+
+      }
+
+        
+    }
+  }
+  
+  onMount(() => {
+    console.log("savedData", savedData)
+
+    // IF there was already a bend type sepcified, select it here.
+
+  })
 
   function closeDialog() {
 
@@ -14,9 +40,25 @@
 
     // savedData
 
-    close = true
+    console.log("Close Dialog")
+    close()
 
   }
+
+  function onSelectProperty(event) {
+
+    const value = event.srcElement.value
+
+    console.log("Select", value)
+    console.log("savedData", savedData)
+    const key = contextItem.path + ":" + subGeom.name
+    savedData[key] = {
+      "BendType": value
+    }
+    localStorage.setItem(asset.name, JSON.stringify(savedData))
+
+  }
+
 </script>
 
 <DialogOverlay {isOpen} onDismiss={close} class="overlay">
@@ -24,10 +66,12 @@
     <section class="p-2">
       <header>Properties</header>
       <main>
-        <pre
-          class="text-gray-100 my-3 py-3">
-{contextItem.getName()}
-{contextItem.getPath()}
+        <pre class="my-3 py-3">
+        <select name="Property"  value={selected}  on:change="{onSelectProperty}">  
+          <option value="Tap"> Tap </option>  
+          <option value="Burring"> Burring </option>  
+          <option value="Simple"> Simple </option>
+        </select>
         </pre>
       </main>
       <div class="text-right">
