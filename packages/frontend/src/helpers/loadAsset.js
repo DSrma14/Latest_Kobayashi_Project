@@ -58,11 +58,13 @@ const loadAsset = (url, callback) => {
       })
 
       // console.log(tagsMapping)
-      fetch('http://localhost:3333/converted.json')
-        .then(response => response.json())
+          callback(tagsMapping, {})
+
+        fetch('http://localhost:3333/converted.json')
+        .then(response => response.text())
         .then(data => {
           console.log(data)
-          callback(tagsMapping, data)
+          // callback(tagsMapping, JSON.parse(data))
         });
       
     })
