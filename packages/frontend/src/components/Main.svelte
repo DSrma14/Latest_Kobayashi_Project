@@ -22,13 +22,18 @@
   import Button from './Button.svelte'
   import Menu from './ContextMenu/Menu.svelte'
   import MenuOption from './ContextMenu/MenuOption.svelte'
-  // import Dialog from './Dialog.svelte'
+import { text } from 'svelte/internal';
+  import Dialog from './Dialog.svelte'
 
-  let isMenuVisible = false
+   let isMenuVisible = false
   let pos = { x: 0, y: 0 }
+  let contextAsset
   let contextItem
-  const openMenu = (event, item) => {
+  let contextSubGeom
+  const openMenu = (event, asset, item, subGeom) => {
+    contextAsset = asset
     contextItem = item
+    contextSubGeom = subGeom
     pos = event.touches
       ? { x: event.touches[0].clientX, y: event.touches[0].clientY }
       : { x: event.clientX, y: event.clientY }
@@ -308,13 +313,14 @@
       if (event.intersectionData && event.intersectionData.componentId >= 0) {
         const geomItem = event.intersectionData.geomItem
         const subGeomId = event.intersectionData.componentId
-        // const key = "highlightedFace:" +  subGeomId
-        // if (key != highlightKey) {
-        //   if (highlightedItem)  highlightedItem.removeHighlight(highlightKey)
-        //   highlightKey = key
-        //   highlightedItem = geomItem
-        //   highlightedItem.addHighlight(highlightKey, new Color(1, 0, 0, 0.4))
-        // }
+        const key = "highlightedFace:" +  subGeomId
+        if (key != highlightKey) {
+          if (highlightedItem)  highlightedItem.removeHighlight(highlightKey)
+          highlightKey = key
+          highlightedItem = geomItem
+          highlightedItem.addHighlight(highlightKey, new Color(1, 0, 0, 0.4))
+          
+        }
 
         const geom = geomItem.geomParam.value
         const subGeom = geom.subGeoms[subGeomId]
@@ -329,56 +335,56 @@
           }
           return faceIds
         }
-
+        //console.log(metadata)
         const tagId = subGeom.name
-        if (metadata.bends) {
-          let mouseOverBend = false
-          for(let i=0; i<metadata.bends.length; i++) {
-            const bend = metadata.bends[i]
+      //   if (metadata.bends) {
+      //     let mouseOverBend = false
+      //     for(let i=0; i<metadata.bends.length; i++) {
+      //       const bend = metadata.bends[i]
             
-            for(let j=0; j<bend.faces.side_1.length && !mouseOverBend; j++) {
-              if (bend.faces.side_1[j] == tagId) {
-                // We have a mouse over a bend
-                mouseOverBend = true
-              }
-            }
-            for(let j=0; j<bend.faces.side_2.length && !mouseOverBend; j++) {
-              if (bend.faces.side_2[j] == tagId) {
-                // We have a mouse over a bend
-                mouseOverBend = true
-              }
-            }
-            if (mouseOverBend) {
-              const faces = collectBendFaces(bend)
-              const key = "highlightedFace:" +  faces
-              if (key != highlightKey) {
-                if (highlightedItem)  highlightedItem.removeHighlight(highlightKey)
-                highlightKey = key
-                highlightedItem = geomItem
-                highlightedItem.addHighlight(highlightKey, new Color(1, 0, 0, 0.4))
-              }
+      //       for(let j=0; j<bend.faces.side_1.length && !mouseOverBend; j++) {
+      //         if (bend.faces.side_1[j] == tagId) {
+      //           // We have a mouse over a bend
+      //           mouseOverBend = true
+      //         }
+      //       }
+      //       for(let j=0; j<bend.faces.side_2.length && !mouseOverBend; j++) {
+      //         if (bend.faces.side_2[j] == tagId) {
+      //           // We have a mouse over a bend
+      //           mouseOverBend = true
+      //         }
+      //       }
+      //       if (mouseOverBend) {
+      //         const faces = collectBendFaces(bend)
+      //         const key = "highlightedFace:" +  faces
+      //         if (key != highlightKey) {
+      //           if (highlightedItem)  highlightedItem.removeHighlight(highlightKey)
+      //           highlightKey = key
+      //           highlightedItem = geomItem
+      //           highlightedItem.addHighlight(highlightKey, new Color(1, 0, 0, 0.4))
+      //         }
 
-              // Display a Tooltip here...
-            } else {
+      //         // Display a Tooltip here...
+      //       } else {
               
-              if (highlightedItem)  highlightedItem.removeHighlight(highlightKey)
-                highlightKey = ""
-            }
-          }
-        }
-        // const subGeom = geom.subGeoms[subGeomId]
-        // const surfaceTypeParam = subGeom.getParameter("SurfaceType")
-        // if (surfaceTypeParam && surfaceTypeParam.value == "Cylinder") {
-        //   console.log("Bend:", surfaceTypeParam.value)
+      //         if (highlightedItem)  highlightedItem.removeHighlight(highlightKey)
+      //           highlightKey = ""
+      //       }
+      //     }
+      //   }
+      //   // const subGeom = geom.subGeoms[subGeomId]
+      //   // const surfaceTypeParam = subGeom.getParameter("SurfaceType")
+      //   // if (surfaceTypeParam && surfaceTypeParam.value == "Cylinder") {
+      //   //   console.log("Bend:", surfaceTypeParam.value)
 
-        // }
+      //   // }
 
-      } else {
-        if (highlightedItem) {
-          highlightedItem.removeHighlight(highlightKey)
-          highlightedItem = null
-          highlightKey = ""
-        }
+      // } else {
+      //   if (highlightedItem) {
+      //     highlightedItem.removeHighlight(highlightKey)
+      //     highlightedItem = null
+      //     highlightKey = ""
+      //   }
       }
 
     })
@@ -391,9 +397,13 @@
       return item
     }
     document.oncontextmenu = function(event){
-      event.stopPropagation();
-      event.preventDefault()
+     // if(event.button==2 && event.intersectionData){
+     event.stopPropagation();
+    event.preventDefault();
+      //console.log("hello");
     }
+    
+    
     renderer.getViewport().on('pointerDown', (event) =>{
       if (event.button == 2 && event.intersectionData && event.intersectionData.componentId >= 0) {
         const geomItem = event.intersectionData.geomItem
@@ -406,15 +416,9 @@
         // subGeom.addParameter(new StringParameter("data", "Clicked"))
         const asset = findAsset(geomItem)
 
-        const key = geomItem.path + ":" + subGeom.name
-        savedData[key] = {
-          "BendType": "Bar"
-        }
-        localStorage.setItem(asset.name, JSON.stringify(savedData))
-
         // Display a UI here to select options.
         // Pass the data to the UIEvent. SubGeom, 
-        openMenu(event, geomItem)
+        openMenu(event, asset, geomItem, subGeom)
 
         event.preventDefault()
 
@@ -589,15 +593,16 @@
 </main>
 
 
-<!-- <Dialog isOpen={isDialogOpen} {savedData} close={closeDialog} {contextItem} /> -->
+<Dialog isOpen={isDialogOpen} {savedData} close={closeDialog} {contextItem} asset={contextAsset} subGeom={contextSubGeom}/> 
 
 {#if isMenuVisible}
   <Menu {...pos} on:click={closeMenu} on:clickoutside={closeMenu}>
     <MenuOption
-      text="Properties"
+      text="Edit"
       on:click={() => {
         isDialogOpen = true
-        closeMenu()
+        //closeMenu()
+        console.log("Tap")
       }}
     />
   </Menu>
@@ -605,6 +610,6 @@
 
 <style>
   canvas {
-    touch-action: none;
+    touch-action: pinch-zoom;
   }
 </style>
